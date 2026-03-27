@@ -81,21 +81,6 @@ python3 benchmark_api.py evm-call --contract-address <deployed-contract-address>
 For the Scilla state flow, you need a deployed Scilla contract and then query that contract's state with `zilliqa-state`.
 If the Scilla contract is missing, please let me know.
 
-## Optional: Deploy a New EVM Benchmark Contract
-
-Only use this if you specifically want to deploy a fresh benchmark contract.
-
-```bash
-export PRIVATE_KEY=<your-private-key>
-export RPC_URL=https://api.zq2-devnet.zilliqa.com
-python3 benchmark_api.py deploy-evm
-```
-
-Before deploying, make sure you have:
-
-* an EVM wallet with balance for the EVM deployment
-* a Zilliqa native wallet with balance if you also want to deploy a Scilla contract for state benchmarking
-
 ---
 
 ### 2. 🧱 EVM Deploy Helper
@@ -115,6 +100,21 @@ Direct usage:
 ```bash
 node deploy_evm_contract.js https://api.zq2-devnet.zilliqa.com
 ```
+
+## Optional: Deploy a New EVM Benchmark Contract
+
+Only use this if you specifically want to deploy a fresh benchmark contract.
+
+```bash
+export PRIVATE_KEY=<your-private-key>
+export RPC_URL=https://api.zq2-devnet.zilliqa.com
+python3 benchmark_api.py deploy-evm
+```
+
+Before deploying, make sure you have:
+
+* an EVM wallet with balance for the EVM deployment
+* a Zilliqa native wallet with balance if you also want to deploy a Scilla contract for state benchmarking
 
 ---
 
