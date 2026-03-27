@@ -78,7 +78,14 @@ def build_parser():
 
 
 def add_common_benchmark_args(parser):
-    parser.add_argument("--runs", type=int, default=50, help="Total number of requests. Default: 50")
+    parser.add_argument(
+        "--total-calls",
+        "--runs",
+        dest="total_calls",
+        type=int,
+        default=50,
+        help="Total number of requests. Default: 50",
+    )
     parser.add_argument("--workers", type=int, default=10, help="Concurrent workers. Default: 10")
     parser.add_argument(
         "--timeout",
@@ -197,7 +204,7 @@ def run_zilliqa_state(args):
     benchmark_rpc(
         url=args.url,
         payload=payload,
-        runs=args.runs,
+        runs=args.total_calls,
         workers=args.workers,
         timeout=args.timeout,
         label=f"GetSmartContractState({args.contract})",
@@ -236,7 +243,7 @@ def run_evm_call(args):
     benchmark_rpc(
         url=args.url,
         payload=payload,
-        runs=args.runs,
+        runs=args.total_calls,
         workers=args.workers,
         timeout=args.timeout,
         label=f"eth_call({args.contract_address})",
