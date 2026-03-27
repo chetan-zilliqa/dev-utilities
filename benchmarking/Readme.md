@@ -1,6 +1,6 @@
 ---
 
-# 🚀 ZQ2 Benchmarking Utilities
+# 🚀 ZQ2 API Benchmarking Utilities
 
 This folder contains the dedicated benchmarking scripts for comparing ZQ2 RPC behavior across networks.
 
