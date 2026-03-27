@@ -12,20 +12,29 @@ Install the following on your system before running the benchmarking scripts:
 
 * Python 3
 * `pip` for installing Python packages
-* Node.js and `npm`
 * Python package: `requests`
-* Node.js package: `ethers`
 
 Example install commands on Ubuntu or Debian:
 
 ```bash
 sudo apt update
-sudo apt install -y python3 python3-pip nodejs npm
+sudo apt install -y python3 python3-pip
 python3 -m pip install --user requests
+```
+
+Most users only need the above to run the benchmark commands.
+
+Only if you want to deploy a new EVM benchmark contract, also install:
+
+* Node.js and `npm`
+* Node.js package: `ethers`
+
+```bash
+sudo apt install -y nodejs npm
 npm install ethers
 ```
 
-If you use the EVM deploy flow, you also need:
+Only if you use the EVM deploy flow, you also need:
 
 * `PRIVATE_KEY` exported in your shell
 * an EVM wallet with enough balance to pay for deployment
@@ -48,7 +57,12 @@ Benchmarks RPC endpoints with separate commands for legacy Scilla state calls an
 * ✅ Measures min/avg/max latency
 * ✅ Throughput & success rate
 * ✅ Concurrent workers
-* ✅ Deploys a tiny EVM contract for `eth_call` benchmarking
+
+## Benchmark API Usage
+
+Most users will only use `benchmark_api.py`.
+
+There is no need to deploy a new EVM contract if a benchmark contract is already deployed and you already have the contract address.
 
 Benchmark the current Scilla RPC:
 
@@ -57,9 +71,19 @@ export RPC_URL=https://api.zq2-devnet.zilliqa.com
 python3 benchmark_api.py zilliqa-state --total-calls 100 --workers 20
 ```
 
-Note: There is no need to deploy the EVM benchmark contract for normal benchmarking if it has already been deployed and you already have the contract address.
+Benchmark `eth_call` against an already deployed contract:
 
-Deploy the EVM benchmark contract:
+```bash
+export RPC_URL=https://api.zq2-devnet.zilliqa.com
+python3 benchmark_api.py evm-call --contract-address <deployed-contract-address> --total-calls 100 --workers 20
+```
+
+For the Scilla state flow, you need a deployed Scilla contract and then query that contract's state with `zilliqa-state`.
+If the Scilla contract is missing, please let me know.
+
+## Optional: Deploy a New EVM Benchmark Contract
+
+Only use this if you specifically want to deploy a fresh benchmark contract.
 
 ```bash
 export PRIVATE_KEY=<your-private-key>
@@ -67,20 +91,10 @@ export RPC_URL=https://api.zq2-devnet.zilliqa.com
 python3 benchmark_api.py deploy-evm
 ```
 
-Only deploy if you specifically want a fresh contract. In that case, you should have both:
+Before deploying, make sure you have:
 
 * an EVM wallet with balance for the EVM deployment
 * a Zilliqa native wallet with balance if you also want to deploy a Scilla contract for state benchmarking
-
-For the Zilliqa native flow, you need a deployed Scilla contract and then you query that contract's state with `zilliqa-state`.
-If the Scilla contract is missing, please let me know.
-
-Benchmark `eth_call` against that deployed contract:
-
-```bash
-export RPC_URL=https://api.zq2-devnet.zilliqa.com
-python3 benchmark_api.py evm-call --contract-address <deployed-contract-address> --total-calls 100 --workers 20
-```
 
 ---
 
