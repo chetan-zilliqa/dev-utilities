@@ -75,7 +75,7 @@ Benchmark `eth_call` against an already deployed contract:
 
 ```bash
 export RPC_URL=https://api.zq2-devnet.zilliqa.com
-python3 benchmark_api.py evm-call --contract-address <deployed-contract-address> --total-calls 100 --workers 20
+python3 benchmark_api.py evm-call --contract-address 0xb1Dd28BBC3d92BDB51F61bf989aaF147aEA3Bf62 --total-calls 100 --workers 20
 ```
 
 For the Scilla state flow, you need a deployed Scilla contract and then query that contract's state with `zilliqa-state`.
